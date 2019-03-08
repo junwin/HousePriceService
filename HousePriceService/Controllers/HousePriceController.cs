@@ -16,5 +16,12 @@ namespace HousePriceService.Controllers
 
             return new string[] { price };
         }
+
+        //api/HousePrice?area=76&sqft=1300&rooms=7&bedrooms=3&fullBath=2&halfbath=0&garageType=Attached&garageSpaces=2
+         [HttpGet("{area}/{sqft}/{rooms}/{bedrooms}/{fullbath}/{halfbath}/{garageType}/{garageSpaces}")]
+        public ActionResult<string> Get(string area, int sqft, int rooms, int fullbath, int halfbath, string garageType, int garageSpaces)
+        {
+            return "value";
+        }
     }
 }
