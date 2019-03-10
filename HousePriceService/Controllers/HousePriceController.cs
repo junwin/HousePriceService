@@ -7,21 +7,27 @@ namespace HousePriceService.Controllers
     [ApiController]
     public class HousePriceController : ControllerBase
     {
-        // GET api/values
+        // GET api/HousePrice
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
             var housePriceSample1 = new HouseData() { Area = "76", BedRooms = 3, BedRoomsBsmt = 0, FullBath = 2, HalfBath = 0, Rooms = 7, ApproxSquFeet = 1300, GarageType = "Attached", GarageSpaces = 2 };
-            var price = HousePricePrediction.PredictSinglePrice(housePriceSample1, @"MLNETModels\housePriceModel.zip");
+            //var price = HousePricePrediction.PredictSinglePrice(housePriceSample1, @"MLNETModels\housePriceModel.zip");
+            var price = HousePricePrediction.PredictSinglePrice(housePriceSample1);
 
             return new string[] { price };
         }
 
-        //api/HousePrice?area=76&sqft=1300&rooms=7&bedrooms=3&fullBath=2&halfbath=0&garageType=Attached&garageSpaces=2
-         [HttpGet("{area}/{sqft}/{rooms}/{bedrooms}/{fullbath}/{halfbath}/{garageType}/{garageSpaces}")]
-        public ActionResult<string> Get(string area, int sqft, int rooms, int fullbath, int halfbath, string garageType, int garageSpaces)
+        // GET api/HousePrice/price
+        [HttpGet("{price}")]
+        public ActionResult<string> Get(string area, float sqft, float rooms, float bedrooms, float fullbath, float halfbath, string garageType, float garageSpaces)
         {
-            return "value";
+            var housePriceSample1 = new HouseData() { Area = area, BedRooms = bedrooms, BedRoomsBsmt = 0, FullBath = fullbath, HalfBath =halfbath, Rooms = rooms, ApproxSquFeet = sqft, GarageType = garageType, GarageSpaces = garageSpaces };
+            //var price = HousePricePrediction.PredictSinglePrice(housePriceSample1, @"MLNETModels\housePriceModel.zip");
+            var price = HousePricePrediction.PredictSinglePrice(housePriceSample1);
+
+            return price.ToString();
+            
         }
     }
 }
